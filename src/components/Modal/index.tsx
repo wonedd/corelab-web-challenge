@@ -3,9 +3,10 @@ import { Input } from '../Input';
 import * as Yup from 'Yup';
 import { Container, Content } from './styles';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import { Button } from '../Button';
+import { toast } from 'react-toastify';
+import { api } from '../../services/api';
+import { useRouter } from 'next/router';
 
 interface ModalProps {
   isOpen: boolean;
@@ -20,15 +21,16 @@ type IData = {
   year: string;
 };
 export function Modal({ isOpen, onCloseRequest }: ModalProps) {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
+  const { reload } = useRouter();
 
   const handleCreateVehicle = async (data: IData) => {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required('Nome do veículo é obrigatório'),
         brand: Yup.string().required('Email do usuário obrigatório'),
-        color: Yup.string(),
-        plate: Yup.string().required('Placa obrigatória'),
+        color: Yup.string().required('Cor obrigatória'),
+        plate: Yup.string().required('Placa obrigatória').min(7),
         year: Yup.string().required('Ano obrigatório'),
       });
 
@@ -36,20 +38,20 @@ export function Modal({ isOpen, onCloseRequest }: ModalProps) {
         abortEarly: false,
       });
 
-      const response = await axios.post('http://localhost:3333/vehicles', data);
+      await api.post('/vehicles', data);
 
-      console.log(response);
+      toast.success('Veículo criado com sucesso!');
+
+      onCloseRequest();
+
+      reload();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
-        return;
+        toast.error(err.message);
       }
-
-      toast.error('Erro ao cadastrar unidade');
-      toast.error(
-        'Vish, acho que alguém puxou um cabo aqui. tente novamente em uns minutinhos beleza?',
-      );
     }
   };
+
   return (
     <Container isOpen={isOpen}>
       <Content onSubmit={handleSubmit(handleCreateVehicle)}>
@@ -59,7 +61,9 @@ export function Modal({ isOpen, onCloseRequest }: ModalProps) {
         <Input name="color" label="Cor:" register={register} />
         <Input name="year" label="Ano:" register={register} />
         <Input name="plate" label="Placa:" register={register} />
-        <button type="submit">cu</button>
+        <Button isSave type="submit">
+          cu
+        </Button>
       </Content>
     </Container>
   );

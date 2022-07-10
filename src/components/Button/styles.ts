@@ -4,8 +4,9 @@ interface ContainerProps {
   isSave: boolean;
 }
 
-export const Container = styled.div<ContainerProps>`
-  width: ${props => (props.isSave ? '123px' : '377px')};
+export const Container = styled.button<ContainerProps>`
+  all: unset;
+  width: ${props => (props.isSave ? '123px' : '368px')};
   height: ${props => (props.isSave ? '44px' : '60px')};
 
   background: rgba(101, 220, 199, 0.8);
@@ -15,7 +16,7 @@ export const Container = styled.div<ContainerProps>`
   align-items: center;
   justify-content: center;
 
-  font-weight: 500;
+  font-weight: ${props => (props.isSave ? '400' : '500')};
   font-size: ${props => (props.isSave ? '1.125rem' : '1.25rem')};
   line-height: ${props => (props.isSave ? '1.375rem' : '1.5rem')};
 
