@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { api } from '../../services/api';
 import { UpdateModal } from '../UpdateModal';
 import { useVehicles } from '../../services/hooks/useVehicles';
+import { toast } from 'react-toastify';
 
 interface CardProps {
   vehicle: {
@@ -41,7 +42,7 @@ export function Card({ vehicle }: CardProps) {
 
   const handleUnfavorite = async () => {
     try {
-      const response = await api.delete(`/favorites/${vehicle.id}`);
+      const response = await api.patch(`/favorites/${vehicle.id}`);
 
       console.log(response);
 
@@ -51,11 +52,19 @@ export function Card({ vehicle }: CardProps) {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/vehicles/${vehicle?.id}`);
+      refetch();
+    } catch (err) {
+      toast.error('Erro ao deletar o veículo');
+    }
+  };
   return (
     <>
       <Container>
         <Header>
-          <IoClose size={25.5} />
+          <IoClose size={25.5} onClick={() => handleDelete()} />
           <IoPencilOutline size={19.5} onClick={() => setIsOpen(true)} />
           {vehicle?.favorite ? (
             <IoHeart
@@ -74,11 +83,11 @@ export function Card({ vehicle }: CardProps) {
           )}
         </Header>
         <Content>
-          <Topic>{vehicle?.name}</Topic>
-          <Topic>Preço:{vehicle?.price}</Topic>
-          <Topic>Descrição:{vehicle?.description}</Topic>
-          <Topic>Ano:{vehicle?.year}</Topic>
-          <Topic> Cor:{vehicle?.color}</Topic>
+          <Topic>{vehicle?.name.toUpperCase()}</Topic>
+          <Topic>Preço: R${vehicle?.price},00</Topic>
+          <Topic>Descrição: {vehicle?.description}</Topic>
+          <Topic>Ano: {vehicle?.year}</Topic>
+          <Topic> Cor: {vehicle?.color}</Topic>
         </Content>
       </Container>
       <UpdateModal

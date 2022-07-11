@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 export const Container = styled.div`
   width: 258px;
@@ -10,6 +11,11 @@ export const Container = styled.div`
   background-color: #f04f4f;
 
   padding-left: 8px;
+
+  ${media.minlaptop} {
+    width: 223px;
+    height: 191px;
+  }
 `;
 export const Header = styled.span`
   display: flex;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 interface ContainerProps {
   isOpen: boolean;
@@ -21,18 +22,18 @@ export const Container = styled.section<ContainerProps>`
 `;
 
 export const Content = styled.form`
-  width: 306px;
+  min-width: 306px;
   height: 622px;
 
-  background: rgba(255, 255, 255, 0.7);
+  position: relative;
 
-  border: 1px solid rgba(2, 2, 2, 0.8);
+  background: rgba(255, 255, 255, 1);
 
   display: flex;
   flex-direction: column;
   gap: 21px;
 
-  padding: 69px 35px;
+  padding: 51px 35px;
 
   transition: 0.2s;
 
@@ -42,4 +43,24 @@ export const Content = styled.form`
       cursor: pointer;
     }
   }
+  ${media.minlaptop} {
+    background-color: #ececec;
+  }
+`;
+
+export const InputBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  ${media.minlaptop} {
+    gap: 57px;
+  }
+`;
+
+export const ButtonBox = styled.div`
+  display: flex;
+
+  align-self: flex-end;
+  position: absolute;
 `;

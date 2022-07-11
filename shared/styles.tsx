@@ -31,7 +31,7 @@ export const globalStyles = (
       }
 
       body {
-        background: rgba(255, 255, 255, 0.7);
+        background: #ffffff;
         overflow-x: hidden;
       }
       body,

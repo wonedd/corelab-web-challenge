@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 export const Container = styled.div`
   display: flex;
@@ -12,7 +13,12 @@ export const Label = styled.p`
 
   color: #000000;
 
-  padding-left: 16px;
+  padding-left: 12px;
+
+  ${media.minlaptop} {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
 `;
 
 export const InputBase = styled.select`
@@ -37,6 +43,8 @@ export const InputBase = styled.select`
 
   padding-left: 16px;
 
+  cursor: pointer;
+
   &::placeholder {
     font-weight: 400;
     font-size: 1.25rem;
@@ -47,5 +55,19 @@ export const InputBase = styled.select`
 
   &:focus {
     background-color: rgba(2, 2, 2, 0.1);
+  }
+  ${media.minlaptop} {
+    max-width: 551px;
+
+    height: 60px;
+    width: 551px;
+
+    font-size: 1.563rem;
+    line-height: 1.875rem;
+
+    &::placeholder {
+      font-size: 1.563rem;
+      line-height: 1.875rem;
+    }
   }
 `;

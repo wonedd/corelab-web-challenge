@@ -4,15 +4,17 @@ import {
   Title,
   Header,
   Cards,
+  ColumContainer,
 } from '../../shared/home.styles';
 import { Button } from '../components/Button';
-import { api } from '../services/api';
+
 import { useEffect, useState } from 'react';
 import { Modal } from '../components/Modal';
 import { Card } from '../components/Card';
 import Skeleton from 'react-loading-skeleton';
 import { Search } from '../components/Search';
 import { useVehicles } from '../services/hooks/useVehicles';
+
 type IVehicles = {
   name: string;
   color: string;
@@ -89,18 +91,16 @@ export default function Home() {
             <Button onClick={() => setIsOpen(true)} />
           </Header>
           {favorites?.length > 0 && (
-            <Cards>
+            <ColumContainer>
               <Title>Favoritos</Title>
-              {favorites?.map(favorite => {
-                return <Card key={favorite.id} vehicle={favorite} />;
-              })}
-            </Cards>
+              <Cards>
+                {favorites?.map(favorite => {
+                  return <Card key={favorite.id} vehicle={favorite} />;
+                })}
+              </Cards>
+            </ColumContainer>
           )}
-          {error && (
-            <Container>
-              <h1>Falha ao buscar os veículos...</h1>
-            </Container>
-          )}
+          {error && <h1>Falha ao buscar os veículos...</h1>}
           {isLoading ||
             (isFetching && (
               <Cards>
@@ -112,13 +112,14 @@ export default function Home() {
                 ))}
               </Cards>
             ))}
-          <Cards>
+          <ColumContainer>
             <Title>{vehicles?.length > 0 && 'Meus Anúncios'}</Title>
-
-            {results?.map(vehicle => {
-              return <Card key={vehicle.id} vehicle={vehicle} />;
-            })}
-          </Cards>
+            <Cards>
+              {results?.map(vehicle => {
+                return <Card key={vehicle.id} vehicle={vehicle} />;
+              })}
+            </Cards>
+          </ColumContainer>
         </Content>
       </Container>
       <Modal isOpen={isOpen} onCloseRequest={() => setIsOpen(false)} />

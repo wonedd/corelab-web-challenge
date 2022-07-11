@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 interface ContainerProps {
   isSave: boolean;
@@ -28,5 +29,13 @@ export const Container = styled.button<ContainerProps>`
 
   &:hover {
     backdrop-filter: brightness(50%);
+  }
+
+  ${media.minlaptop} {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+
+    width: ${props => (props.isSave ? '154px' : '364px')};
+    height: 60px;
   }
 `;

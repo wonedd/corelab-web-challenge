@@ -7,6 +7,7 @@ import { Button } from '../Button';
 import { toast } from 'react-toastify';
 import { api } from '../../services/api';
 import { useRouter } from 'next/router';
+import { useVehicles } from '../../services/hooks/useVehicles';
 
 interface ModalProps {
   isOpen: boolean;
@@ -21,8 +22,8 @@ type IData = {
   year: string;
 };
 export function Modal({ isOpen, onCloseRequest }: ModalProps) {
-  const { register, handleSubmit, setValue } = useForm();
-  const { reload } = useRouter();
+  const { register, handleSubmit } = useForm();
+  const { refetch } = useVehicles();
 
   const handleCreateVehicle = async (data: IData) => {
     try {
@@ -44,7 +45,7 @@ export function Modal({ isOpen, onCloseRequest }: ModalProps) {
 
       onCloseRequest();
 
-      reload();
+      refetch();
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         toast.error(err.message);

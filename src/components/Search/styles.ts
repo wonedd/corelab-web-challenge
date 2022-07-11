@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 export const Container = styled.div`
   display: flex;
@@ -20,6 +21,11 @@ export const Content = styled.div`
   svg {
     min-width: 30px;
   }
+
+  ${media.minlaptop} {
+    width: 740px;
+    height: 60px;
+  }
 `;
 export const InputBase = styled.input`
   all: unset;
@@ -34,6 +40,13 @@ export const InputBase = styled.input`
 
   &::placeholder {
     color: rgba(2, 2, 2, 0.6);
+  }
+  ${media.minlaptop} {
+    width: 740px;
+    height: 60px;
+
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 `;
 export const Filter = styled.img`

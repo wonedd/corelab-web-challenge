@@ -34,7 +34,11 @@ export function Input({
   return (
     <Container>
       <Label>{label}</Label>
-      <InputBase {...register(name, { required })} {...rest} />
+      <InputBase
+        variant={variant}
+        {...register(name, { required })}
+        {...rest}
+      />
     </Container>
   );
 }

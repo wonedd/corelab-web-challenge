@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
+import { media } from './styles';
 
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
 
   width: 100vw;
-  height: 100vh;
 
   align-items: center;
 `;
@@ -14,19 +14,32 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   gap: 34px;
+
+  ${media.minlaptop} {
+    align-items: center;
+  }
 `;
 
 export const Content = styled.section`
-  background-color: #ececec;
+  background-color: #ffffff;
+
+  min-height: 100vh;
 
   padding: 23px 16px;
 
   width: 414px;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   gap: 66px;
+
   align-items: center;
+
+  ${media.minlaptop} {
+    width: 100%;
+    max-width: 1024px;
+  }
 `;
 
 export const Title = styled.h1`
@@ -35,11 +48,29 @@ export const Title = styled.h1`
   font-weight: normal;
 
   color: #020202;
-  align-self: flex-start;
 `;
 
 export const Cards = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  ${media.minlaptop} {
+    width: 100%;
+    max-width: 1024px;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 30px;
+  }
+`;
+
+export const ColumContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 1024px;
 `;

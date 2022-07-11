@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
 interface ContainerProps {
   isOpen: boolean;
@@ -21,12 +22,10 @@ export const Container = styled.section<ContainerProps>`
 `;
 
 export const Content = styled.form`
-  width: 306px;
-  height: 622px;
+  min-width: 306px;
+  min-height: 622px;
 
-  background: rgba(255, 255, 255, 0.7);
-
-  border: 1px solid rgba(2, 2, 2, 0.8);
+  background: rgba(255, 255, 255, 1);
 
   display: flex;
   flex-direction: column;
@@ -41,5 +40,9 @@ export const Content = styled.form`
       color: #515151;
       cursor: pointer;
     }
+  }
+
+  ${media.minlaptop} {
+    background-color: #ececec;
   }
 `;

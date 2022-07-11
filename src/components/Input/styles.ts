@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
+import { media } from '../../../shared/styles';
 
+interface InputProps {
+  variant?: 'minmax' | 'default';
+}
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -13,13 +17,17 @@ export const Label = styled.p`
   color: #000000;
 
   padding-left: 16px;
+
+  ${media.minlaptop} {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
 `;
 
-export const InputBase = styled.input`
-  height: 38px;
-
+export const InputBase = styled.input<InputProps>`
+  height: ${props => (props.variant === 'minmax' ? '21px' : '48px')};
+  width: ${props => (props.variant === 'minmax' ? '112px' : '240px')};
   max-width: 240px;
-  width: 240px;
 
   background: #ffff;
 
@@ -47,5 +55,20 @@ export const InputBase = styled.input`
 
   &:focus {
     background-color: rgba(2, 2, 2, 0.1);
+  }
+
+  ${media.minlaptop} {
+    max-width: 459px;
+
+    font-size: 1.563rem;
+    line-height: 1.875rem;
+
+    height: ${props => (props.variant === 'minmax' ? '50px' : '60px')};
+    width: ${props => (props.variant === 'minmax' ? '247px' : '459px')};
+
+    &::placeholder {
+      font-size: 1.563rem;
+      line-height: 1.875rem;
+    }
   }
 `;
