@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import { api } from '../../services/api';
 import { Container, Content, InputBox, ButtonBox } from './styles';
@@ -8,7 +7,7 @@ import { Button } from '../Button';
 import { Input } from '../Input';
 import { useVehicles } from '../../services/hooks/useVehicles';
 import { Select } from '../Select';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface UpdateModalProps {
   isOpen: boolean;
@@ -20,55 +19,57 @@ type IData = {
   brand: string;
   color: string;
   year: string;
-  min: number;
-  max: number;
+  min: string;
+  max: string;
 };
 
 export function FilterModal({ isOpen, onCloseRequest }: UpdateModalProps) {
   const { register, handleSubmit } = useForm();
-  const { data, refetch } = useVehicles();
-  const [search, setSearch] = useState([]);
+  const { data } = useVehicles();
 
-  const handleFilter = async (formData: IData) => {
+  const handleFilter = async (data: IData) => {
     try {
       const schema = Yup.object().shape({
         brand: Yup.string(),
         color: Yup.string(),
         year: Yup.string(),
-        min: Yup.number(),
-        max: Yup.number(),
+        min: Yup.string(),
+        max: Yup.string(),
       });
 
-      await schema.validate(formData, {
+      await schema.validate(data, {
         abortEarly: false,
       });
 
-      await api.post('/filter', formData);
+      const response = await api.get(
+        `/vehicles/filter?brand=${data.brand}&color=${data.color}&year=${data.year}&min=${data.min}&max=${data.max}`,
+      );
 
-      onCloseRequest();
+      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
   return (
     <Container isOpen={isOpen}>
       <Content onSubmit={handleSubmit(handleFilter)}>
         <IoArrowBackOutline size={19.5} onClick={onCloseRequest} />
         <Select name="brand" label="Marca:" register={register}>
+          <option selected>{''}</option>
           {data?.vehicles.map(vehicle => {
             return <option value={vehicle.brand}>{vehicle.brand}</option>;
           })}
         </Select>
         <Select name="color" label="Cor:" register={register}>
+          <option selected>{''}</option>
+
           {data?.vehicles.map(vehicle => {
             return <option value={vehicle.color}>{vehicle.color}</option>;
           })}
         </Select>
         <Select name="year" label="Ano:" register={register}>
+          <option selected>{''}</option>
+
           {data?.vehicles.map(vehicle => {
             return <option value={vehicle.year}>{vehicle.year}</option>;
           })}

@@ -23,9 +23,7 @@ export const Container = styled.section<ContainerProps>`
 
 export const Content = styled.form`
   min-width: 306px;
-  height: 622px;
-
-  position: relative;
+  min-height: 622px;
 
   background: rgba(255, 255, 255, 1);
 
@@ -62,5 +60,4 @@ export const ButtonBox = styled.div`
   display: flex;
 
   align-self: flex-end;
-  position: absolute;
 `;

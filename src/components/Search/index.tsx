@@ -5,9 +5,15 @@ import { FilterModal } from '../FilterModal';
 
 interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {
   onSearch: (e: any) => void;
+  onOpenRequest: () => void;
 }
 
-export function Search({ onSearch, value, ...rest }: SearchProps) {
+export function Search({
+  onSearch,
+  value,
+  onOpenRequest,
+  ...rest
+}: SearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Container>
@@ -15,8 +21,7 @@ export function Search({ onSearch, value, ...rest }: SearchProps) {
         <IoSearchOutline size={36} />
         <InputBase onChange={onSearch} {...rest} value={value} />
       </Content>
-      <Filter src="/assets/filter.svg" onClick={() => setIsOpen(true)} />
-      <FilterModal isOpen={isOpen} onCloseRequest={() => setIsOpen(false)} />
+      <Filter src="/assets/filter.svg" onClick={onOpenRequest} />
     </Container>
   );
 }

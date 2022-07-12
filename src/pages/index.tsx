@@ -14,6 +14,8 @@ import { Card } from '../components/Card';
 import Skeleton from 'react-loading-skeleton';
 import { Search } from '../components/Search';
 import { useVehicles } from '../services/hooks/useVehicles';
+import { FilterModal } from '../components/FilterModal';
+import { useFilter } from '../services/hooks/useFilter';
 
 type IVehicles = {
   name: string;
@@ -34,6 +36,7 @@ export default function Home() {
   const [vehicles, setVehicles] = useState<IVehicles[]>();
   const [favorites, setFavorites] = useState<IFavorites[]>();
   const [search, setSearch] = useState<string>();
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { data, error, isLoading, isFetching } = useVehicles();
 
   const SKELETON_REPEATS = 10;
@@ -84,6 +87,7 @@ export default function Home() {
         <Content>
           <Header>
             <Search
+              onOpenRequest={() => setIsFilterOpen(true)}
               onSearch={handleSearch}
               placeholder="Buscar"
               value={search}
@@ -123,6 +127,10 @@ export default function Home() {
         </Content>
       </Container>
       <Modal isOpen={isOpen} onCloseRequest={() => setIsOpen(false)} />
+      <FilterModal
+        isOpen={isFilterOpen}
+        onCloseRequest={() => setIsOpen(false)}
+      />
     </>
   );
 }
